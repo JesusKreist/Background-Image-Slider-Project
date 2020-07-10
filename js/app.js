@@ -1,35 +1,29 @@
-// immediate invoked function expression
+let imageBG = document.querySelector(".img-container");
+let nextButton = document.querySelector(".btn-right");
+let prevButton = document.querySelector(".btn-left");
 
-(function() {
-  const pictures = [
-    "contBcg-0",
-    "contBcg-1",
-    "contBcg-2",
-    "contBcg-3",
-    "contBcg-4"
-  ];
+let currentImage = 0;
 
-  //select both left and right button. Add event listeners
-  const buttons = document.querySelectorAll('.btn')
-  const imageDIV = document.querySelector('.img-container')
-  let counter = 0
+let nextImage = () => {
+  currentImage++;
+  if (currentImage > 4) {
+    currentImage = 4;
+  }
+  if (currentImage <= 4) {
+    imageBG.style.backgroundImage = `url('../img/contBcg-${currentImage}.jpeg')`;
+  };
+};
 
-  buttons.forEach(function(button){
-    button.addEventListener('click', function(e){
-      if (button.classList.contains('btn-left')){
-        counter--
-        if(counter < 0){
-          counter = pictures.length -1
-        }
-        imageDIV.style.backgroundImage = `url('./img/${pictures[counter]}.jpeg')`
-      }
-      if (button.classList.contains('btn-right')){
-        counter++
-        if(counter > pictures.length -1){
-          counter = 0
-        }
-        imageDIV.style.backgroundImage = `url('./img/${pictures[counter]}.jpeg')`
-      }
-    })
-  })
-})();
+let previousImage = () => {
+  currentImage--;
+  if (currentImage < 0) {
+    currentImage = 0;
+  }
+  if (currentImage >= 0) {
+    imageBG.style.backgroundImage = `url('../img/contBcg-${currentImage}.jpeg')`;
+  };
+};
+
+
+nextButton.addEventListener("click", nextImage);
+prevButton.addEventListener("click", previousImage);
